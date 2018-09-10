@@ -1,0 +1,23 @@
+监听器接口可以分为三类：ServletContext，HttpSession和ServletRequest(还有新监听器接口AsyncListener)
+监听器接口主要在javax.servlet和javax.servlet.http包中，接口：
+    application范围：
+    1.ServletContextListener:响应ServletContext生命周期事件，提供了ServletContext创建之后和关闭之前的会被调用的方法；
+    2.ServletAttributeListener:响应ServletContext范围的属性添加、删除、替换等操作；
+    session范围：
+    3.HttpSessionListener:响应HttpSession的创建、超时和失效时间；
+    4.HttpSessionAttributeListener:响应HttpSession范围的属性添加、删除、替换等操作；
+    5.HttpSessionActivationListener:在一个HttpSession激活或者失效时被调用；
+    6.HttpSessionBindingListener:实现这个接口来保存HttpSession范围的属性。当有属性添加或删除时，接口能够做出响应；
+    request范围：
+    7.ServletRequestListener:响应以恶搞ServletRequest的创建或删除；
+    8.ServletRequestAttributeListener:响应ServletRequest范围的属性值添加、删除、修改事件；
+    9.AsyncListener:用于异步操作的监听器。
+
+编写监听器，只需写一个类实现对应的接口就可以。注册监听器的方法，有两种：
+    1.使用WebListener注解
+        @WebListener
+        public class xxx implements xxxListener{}
+    2.在部署文件中增加一个listener元素
+        <Chap8_listener>
+            <Chap8_listener-class>xxx</Chap8_listener-class>
+        </Chap8_listener>
