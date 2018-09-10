@@ -14,7 +14,7 @@ import java.util.Map;
  *  两个方法的参数都为ServletContextEvent，它可以调用方法getServletContext()获取到ServletContext
  */
 
-@WebListener
+//@WebListener
 public class DemoServletContextListener implements ServletContextListener {
     //ServletContext创建时执行
     @Override

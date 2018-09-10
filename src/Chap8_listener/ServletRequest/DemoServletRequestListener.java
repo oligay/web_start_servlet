@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  *  方法的参数都是一个ServletRequestEvent对象，可以用getServletRequest()方法获取ServletRequest对象，也可以getServletContext()获取ServletContext对象。
  */
 
-@WebListener
+//@WebListener
 public class DemoServletRequestListener implements ServletRequestListener {
     //当ServletRequest销毁时，方法被调用
     @Override

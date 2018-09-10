@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 //统计HttpSession的数量。使用一个对象来统计，然后将这个对象保存成ServletContext范围的属性。
-@WebListener
+//@WebListener
 public class DemoHttpSessionListener implements HttpSessionListener, ServletContextListener {
 
 

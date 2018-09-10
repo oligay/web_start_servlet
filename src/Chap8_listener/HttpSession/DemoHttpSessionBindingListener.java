@@ -1,4 +1,4 @@
-package Chap8_listener.ServletContext;
+package Chap8_listener.HttpSession;
 
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionBindingEvent;

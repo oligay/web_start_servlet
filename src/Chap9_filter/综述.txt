@@ -1,0 +1,49 @@
+Filter是拦截Request请求的对象：在用户的请求访问资源前处理ServletRequest以及ServletResponse。通过Filter可以拦截处理某个资源或者某些资源。
+
+Filter的实现必须继承javax.servlet.Filter接口。这个接口包含了Filter的3个生命周期：init,doFilter,destroy。
+    init方法：void init(FilterConfig filterConfig)
+        Servlet容器初始化Filter时，会触发init方法，一般来说是在应用开始时。
+    doFilter方法：void doFilter(ServletRequest req,ServletResponse res,FilterChain filterChain)
+        Servlet容器每次处理Filter相关的资源时，会调用doFilter方法
+        doFilter的实现中，最后一行需要调用FilterChain中的doFilter方法filterChain.doFilter(req,res)
+    destroy方法：void destroy()
+        在Servlet容器要销毁Filter时触发，一般在应用停止的时候进行调用
+
+除非Filter在部署描述中被多次定义到，否则Servlet窗口只会为每个Filter创建单一实例。当遇到用户并发处理时，Filter实例需要同时被多个线程所关联到。
+
+Filter实现后，需要配置Filter，配置步骤：
+    1.确认哪些资源需要使用这个Filter拦截处理
+    2.配置Filter的初始化参数，可在init方法中读取
+    3.给Filter取一个名称
+配置方法两种：
+    1.通过WebFilter的Annotation来配置Filter
+        @WebFilter(filterName="xxxFilter",urlPatterns={"/*"} )
+        属性：
+            asyncSupported
+            description
+            dispatcherTypes
+            displayName
+            filterName
+            initParams
+            largeIcon
+            servletName
+            smallIcon
+            urlPatterns
+            value
+    2.通过部署来配置
+        <filter>
+            <filter-name>xxxFilter<filter-name>
+            <filter-class>full-name of the class</filter-class>
+            <init-param>
+                <param-name>初始化参数名称</param-name>
+                <param-value>初始化参数值</param-value>
+            </init-param>
+        </filter>
+        <filter-mapping>
+            <filter-name>xxxFilter<filter-name>
+            <url-pattern>/*</url-pattern>
+        <filter-mapping>
+
+Filter顺序：
+    多个Filter应用于同一个资源时，需要使用部署描述来管理Filter，指定哪个Filter先被触发。
+    就是在xml中声明配置Filter的顺序
