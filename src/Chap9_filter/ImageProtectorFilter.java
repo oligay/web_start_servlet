@@ -12,7 +12,7 @@ import java.io.IOException;
  *  Filter应用于所有的.png,.jpg,.gif文件后缀。
  */
 
-@WebFilter(filterName = "ImageProtectorFilter",urlPatterns = {".png",".jpg",".gif"})
+//@WebFilter(filterName = "ImageProtectorFilter",urlPatterns = {".png",".jpg",".gif"})
 public class ImageProtectorFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

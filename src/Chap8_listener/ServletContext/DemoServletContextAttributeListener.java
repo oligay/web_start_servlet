@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebListener;
  *  三个方法都能获取到一个ServletContextAttributeEvent的对象，通过该对象的getName()和getValue()方法可以获取属性的名称和值。
  */
 
-@WebListener
+//@WebListener
 public class DemoServletContextAttributeListener implements ServletContextAttributeListener {
     //在一个ServletContext范围属性被添加时被容器调用
     @Override

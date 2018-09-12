@@ -1,0 +1,10 @@
+装饰器模式：
+    Decorator模式允许修饰或者封装一个对象，即使你没有该对象的源代码或者该对象标识为final。
+    Decorator模式适用于无法继承该类，或者无法创建该类的实例，但可以从另外的系统中可以取得该类的实现时。
+
+    修改ServletRequest或者ServletResponse行为的唯一方法是在另外的对象中封装该实例。唯一限制是，修饰对象必须继承一个接口，然后实现接口来封装这些方法。
+
+Servlet封装类：
+    Servlet API有4个实现类，ServletRequestWrapper、ServletResponseWrapper、HttpServletRequestWrapper、HttpServletRequestWrapper。
+    Wrapper类十分便于使用，因为它提供了每个方法的默认实现，即对应类封闭的配置方法。通过继承Wrapper类，只需要实现需要变更的方法就行。
+    如果不使用，则需要继承ServletRequest并实现其中所有的方法。

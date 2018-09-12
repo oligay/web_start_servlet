@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSessionEvent;
  *  方法参数为HttpSessionEvent对象，可以通过其获得HttpSession
  */
 
-@WebListener
+//@WebListener
 public class DemoHttpSessionActivationListener implements HttpSessionActivationListener {
     //HttpSession将要失效时，容器会调用方法
     @Override

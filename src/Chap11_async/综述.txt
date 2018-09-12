@@ -1,0 +1,38 @@
+异步处理：Servlet3.0引入的新功能，运行使用Servlet处理异步处请求。
+    Servlet或过滤器占有请求处理线程直到它完成任务。如果任务需要很长时间才能完成，当用户的并发请求数目超过线程数时，容器可能发生无可用线程的风险。
+
+    异步处理功能可以节约容器线程。将此功能使用在长时间运行的操作上，作用是释放正在等待完成的线程，使该线程能够被另一请求所使用。
+    当有一个长时间运行的任务并且要把运行结果通知给用户，适合于异步；如果只有一个长期运行任务，但用户不需要知道处理结果，可以提交一个Runnable给Executor并立即返回。
+
+如何编写：
+    WebServlet和WebFilter注解类型可能包含新的asyncSupport属性。要编写支持异步处理的Servlet或过滤器，需要把asyncSupported属性设置为true。
+        @WebServlet(asyncSupported=true,...)
+    在部署文件里面指定描述符也可将Servlet配置为支持异步处理：
+        <servlet>
+            <servlet-name>xxxServlet</servlet-name>
+            <servlet-class>path</servlet-class>
+            <async-supported>true</async-supported>
+        </servlet>
+
+    servlet或filter要支持异步处理，可以通过调用ServletRequest的startAsync方法来启动一个新线程：
+        AsyncContext startAsync() throws xxx
+        AsyncContext startAsync(ServletRequest servletRequest.ServletResponse servletResponse) throws xxx
+    两个重载方法返回一个asyncContext实例，提供各种方法并且包含ServletRequest和ServletResponse。
+    startAsync()方法重复调用将返回相同的AsyncContext。
+
+编写异步Servlet:
+    当有一个需要相当长的时间完成的任务时，需要创建一个异步的Servlet或过滤器。异步servlet中的操作步骤：
+        1.调用ServletRequest中的startAsync方法。返回一个AsyncContext。
+        2.调用AsyncContext的setTimeout()，传递容器等待任务完成的超时时间的毫秒数。如果任务未能在指定的超时时间内完成，将会抛出一个超时异常。
+        3.调用asyncContext.start，传递一个Runnable来执行一个长时间运行的任务。
+        4.调用Runnable的asyncContext.complete或asyncContext.dispatch方法来完成任务。
+
+异步监听器：
+    AsyncListener接口用于接收异步处理过程中发生事件的通知。定义的方法：
+        在异步操作启动完毕后调用：void onStartAsync(AsyncEvent event)
+        在异步操作完成后调用：void onComplete(AsyncEvent event)
+        在异步操作失败后调用：void onError(AsyncEvent event)
+        在异步操作超时后调用：void onTimeout(AsyncEvent event)
+    参数AsyncEvent可以通过AsyncEvent,ServletRequest,ServletResponse对应的getAsyncContext,getSuppliedRequest,getSuppliedResponse方法获取。
+    AsyncListener类不是用注解的，所以必须为AsyncListener手动注册一个监听器，用于接收所需要的事件。
+    通过调用addListener方法为AsyncContext注册一个监听器。

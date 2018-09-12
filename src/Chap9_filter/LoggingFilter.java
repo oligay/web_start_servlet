@@ -13,10 +13,10 @@ import java.util.Date;
  *  日志的每条记录都有一个前缀，也由Filter初始化参数来定义。
  */
 
-@WebFilter(filterName = "LoggingFilter",urlPatterns = "/*",initParams = {
-        @WebInitParam(name = "logFileName",value = "log.txt"),
-        @WebInitParam(name = "prefix",value = "URI: ")
-})
+//@WebFilter(filterName = "LoggingFilter",urlPatterns = "/*",initParams = {
+//        @WebInitParam(name = "logFileName",value = "log.txt"),
+//        @WebInitParam(name = "prefix",value = "URI: ")
+//})
 public class LoggingFilter implements Filter {
     private PrintWriter logger;
     private String prefix;
